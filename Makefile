@@ -1,3 +1,5 @@
+include .env
+
 clean:
 	# 停止＆削除 (コンテナ・ネットワーク・ボリューム)
 	docker-compose down -v
