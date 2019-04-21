@@ -1,6 +1,13 @@
 version: '3'
 
 services:
+  sandbox:
+    image: ${SANDBOX_REPOSITORY}:${SANDBOX_TAG}
+    restart: always
+    ports:
+      - "8080:8080"
+    env_file: .env
+
   mysql:
     image: ${MYSQL_REPOSITORY}:${MYSQL_TAG}
     command: --default-authentication-plugin=mysql_native_password
