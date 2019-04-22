@@ -28,3 +28,9 @@ test:
 
 clean: stop
 	docker ps --filter=ancestor=${FIZZBUZZ_REPOSITORY}:${FIZZBUZZ_TAG} -a -q | xargs docker rm -f
+
+push: build
+	docker login
+	docker tag ${FIZZBUZZ_REPOSITORY}:${FIZZBUZZ_TAG} ${FIZZBUZZ_REPOSITORY}:latest
+	docker push ${FIZZBUZZ_REPOSITORY}:${FIZZBUZZ_TAG}
+	docker push ${FIZZBUZZ_REPOSITORY}:latest
