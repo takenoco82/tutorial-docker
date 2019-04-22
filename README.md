@@ -62,12 +62,33 @@ where PopulationRank <= 5
 ```
 
 ## 複数のマシンで同じイメージを使う
+1. ローカルでアプリケーションを実行
+2. EC2 にアプリケーションをデプロイして、ローカルから実行
 
 ### ローカルで実行
 ``` sh
 # ローカルでアプリケーションを起動
 make run
 
-# APIを叩く
+# ローカルのAPIを叩く
 curl -X GET http://localhost:8080/v1/fizzbuzz/1
+```
+
+### EC2 にアプリケーションをデプロイして、ローカルから実行
+``` sh
+# イメージをビルドして、DockerHub に push する
+make push
+
+# EC2 にデプロイする (ssh でログインして、イメージを pull して起動)
+ssh aws...
+
+# EC2 にデプロイする (ssh でログインして、イメージを pull して起動)
+docker pull takenoco82/fizzbuzz:1.0.0
+docker run -d -p 8080:8080 --rm takenoco82/fizzbuzz:1.0.0
+
+# EC2 からログアウト
+exit
+
+# EC2のAPIを叩く
+curl -X GET http://13.x.x.x:8080/v1/fizzbuzz/1
 ```
