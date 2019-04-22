@@ -60,3 +60,14 @@ from (
 where PopulationRank <= 5
 ;
 ```
+
+## 複数のマシンで同じイメージを使う
+
+### ローカルで実行
+``` sh
+# ローカルでアプリケーションを起動
+make run
+
+# APIを叩く
+curl -X GET http://localhost:8080/v1/fizzbuzz/1
+```

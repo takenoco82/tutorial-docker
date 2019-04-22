@@ -1,0 +1,105 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        // python
+        {
+            "label": "python",
+            "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "command": "python",
+            "args": [
+                "${file}"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": true,
+                "clear": true
+            },
+            "problemMatcher": [],
+            "options": {
+                "env": {
+                    "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}/src"
+                }
+            }
+        },
+        // nosetests
+        {
+            "label": "nosetests",
+            "type": "shell",
+            "command": "pipenv run nosetests -v --nologcapture ${relativeFile}",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": true,
+                "clear": true
+            },
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": "^\\s+File \"(.*?)\", line ([0-9]+)[,]?.+?$",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3,
+                    }
+                ]
+            },
+            "options": {
+                "env": {
+                    "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}/src"
+                }
+            }
+        },
+        // nosetests: Specified Method
+        {
+            "label": "nosetests: Specified Method",
+            "type": "shell",
+            "command": "pipenv run nosetests -v --nologcapture ${relativeFile} -m ${input:testMethod}",
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": true,
+                "clear": true
+            },
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": "^\\s+File \"(.*?)\", line ([0-9]+)[,]?.+?$",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3,
+                    }
+                ]
+            },
+            "options": {
+                "env": {
+                    "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}/src"
+                }
+            }
+        },
+    ],
+    "inputs": [
+        // testMethod
+        {
+            "id": "testMethod",
+            "type": "promptString",
+            "description": "input method name ..."
+        }
+    ]
+}

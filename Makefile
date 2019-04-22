@@ -1,4 +1,5 @@
 include .env
+SANDBOX_TAG_TESTING := ${SANDBOX_TAG}-testing
 
 clean:
 	# 停止＆削除 (コンテナ・ネットワーク・ボリューム)
@@ -13,6 +14,15 @@ init: clean
 
 stop:
 	docker-compose stop
+	docker-compose rm -f
 
-run: stop
+build:
+	docker build --build-arg TESTING=${TESTING} -t ${SANDBOX_REPOSITORY}:${SANDBOX_TAG} .
+
+run: stop build
 	docker-compose up -d
+
+test:
+	docker build --build-arg TESTING=True -t ${SANDBOX_REPOSITORY}:${SANDBOX_TAG_TESTING} .
+	docker run --rm ${SANDBOX_REPOSITORY}:${SANDBOX_TAG_TESTING} \
+		nosetests -v --nologcapture /usr/src/app/tests
