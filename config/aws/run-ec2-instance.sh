@@ -6,6 +6,7 @@
 #   sh {SCRIPT_FILENAME} -h
 #
 # REMARKS
+#   https://docs.aws.amazon.com/cli/latest/reference/ec2/run-instances.html
 #   https://qiita.com/predora005/items/a1527aa58066fab7e9ad
 #
 
@@ -123,7 +124,8 @@ function run_instance() {
     --subnet-id ${SUBNET_ID} \
     --security-group-ids ${SECURITY_GROUP_IDS} \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${TAG_NAME}}]" \
-    --credit-specification CpuCredits=${CPU_CREDITS}
+    --credit-specification CpuCredits=${CPU_CREDITS} \
+    --associate-public-ip-address
 }
 
 #
